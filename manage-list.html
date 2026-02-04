@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="api-base" content="" id="api-base-meta">
+  <meta name="api-base" content="https://site-bztf.onrender.com" id="api-base-meta">
   <title>Randevularınız | Browdesing Songül</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,8 +45,12 @@
     (function () {
       var apiMeta = document.querySelector('meta[name="api-base"]');
       var API_BASE = (apiMeta && apiMeta.getAttribute('content')) ? apiMeta.getAttribute('content').trim() : '';
-      if (window.location && window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && (!API_BASE || API_BASE.indexOf('localhost') !== -1)) {
-        API_BASE = window.location.origin + '/api';
+      var isLocal = window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+      if (!isLocal && (!API_BASE || API_BASE.indexOf('localhost') !== -1)) {
+        API_BASE = 'https://site-bztf.onrender.com';
+      }
+      if (isLocal && !API_BASE) {
+        API_BASE = window.location.origin.replace(/:\d+$/, ':3000') || 'http://localhost:3000';
       }
       var params = new URLSearchParams(window.location.search);
       var token = params.get('token');

@@ -63,7 +63,7 @@ GitHub’a kod atıldı. Şimdi Render’da Web Service oluştur.
 |-----|--------|
 | `PORT` | `3000` |
 | `FRONTEND_URL` | `https://browdesignsongul.com` |
-| `BASE_URL` | `https://browdesing-api.onrender.com` *(önce böyle bırak; deploy sonrası Render’ın verdiği URL ile değiştirirsin)* |
+| `BASE_URL` | `https://site-bztf.onrender.com` *(önce böyle bırak; deploy sonrası Render’ın verdiği URL ile değiştirirsin)* |
 | `SITE_EMAIL` | `info@browdesignsongul.com` |
 | `ADMIN_EMAIL` | `info@browdesignsongul.com` |
 | `SMTP_HOST` | `smtp.ionos.de` |
@@ -73,6 +73,7 @@ GitHub’a kod atıldı. Şimdi Render’da Web Service oluştur.
 | `ADMIN_USER` | `admin` |
 | `ADMIN_PASS` | *(güçlü bir şifre – canlıda bunu kullanacaksın)* |
 | `RESET_SECRET` | `canlisifresifirla2025` |
+| **NODE_VERSION** | **`18`** *(better-sqlite3 derlemesi için – mutlaka ekle)* |
 
 **Not:** `SMTP_PASS` ve `ADMIN_PASS` gerçek değerlerini sen yazacaksın; burada sadece hangi key’lerin ekleneceği yazıyor.
 
@@ -88,9 +89,9 @@ GitHub’a kod atıldı. Şimdi Render’da Web Service oluştur.
 
 ## 7. URL’i al ve BASE_URL’i güncelle
 
-- Deploy bittikten sonra üstte **yeşil "Live"** ve bir link görünür (örn. `https://browdesing-api.onrender.com`).
+- Deploy bittikten sonra üstte **yeşil "Live"** ve bir link görünür (örn. `https://site-bztf.onrender.com`).
 - Bu adresi kopyala.
-- Render’da: **Environment** sekmesine git → **BASE_URL** değişkeninin değerini bu adres yap (örn. `https://browdesing-api.onrender.com`) → kaydet.
+- Render’da: **Environment** sekmesine git → **BASE_URL** değişkeninin değerini bu adres yap (örn. `https://site-bztf.onrender.com`) → kaydet.
 
 ---
 
@@ -106,7 +107,7 @@ Bilgisayarındaki projede şu dosyalarda **api-base** meta etiketini Render URL�
 Örnek (Render’ın verdiği URL’i yaz):
 
 ```html
-<meta name="api-base" content="https://browdesing-api.onrender.com" id="api-base-meta">
+<meta name="api-base" content="https://site-bztf.onrender.com" id="api-base-meta">
 ```
 
 Sonra bu HTML dosyalarını IONOS’a (FileZilla ile) tekrar yükle. Böylece canlı site Render’daki API’yi kullanır.

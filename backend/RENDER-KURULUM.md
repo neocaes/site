@@ -42,7 +42,7 @@ git push -u origin main
    |----|--------|
    | **PORT** | 3000 (Render kendi PORT verir, ama bazen 3000 yazılır) |
    | **FRONTEND_URL** | https://browdesignsongul.com (canlı site adresin) |
-   | **BASE_URL** | https://browdesing-api.onrender.com (Render’ın vereceği adres – oluşturduktan sonra buraya yaz) |
+   | **BASE_URL** | https://site-bztf.onrender.com (Render’ın vereceği adres – oluşturduktan sonra buraya yaz) |
    | **SITE_EMAIL** | info@browdesignsongul.com |
    | **ADMIN_EMAIL** | info@browdesignsongul.com |
    | **SMTP_HOST** | smtp.ionos.de |
@@ -55,9 +55,9 @@ git push -u origin main
 
 5. **Create Web Service** de.
 
-6. Deploy bitince Render sana bir URL verir (örn. `https://browdesing-api.onrender.com`). Bu adres = API adresin.
+6. Deploy bitince Render sana bir URL verir (örn. `https://site-bztf.onrender.com`). Bu adres = API adresin.
 
-7. **Environment**’ta **BASE_URL**’i bu adresle güncelle: `https://browdesing-api.onrender.com`
+7. **Environment**’ta **BASE_URL**’i bu adresle güncelle: `https://site-bztf.onrender.com`
 
 ---
 
@@ -66,10 +66,10 @@ git push -u origin main
 IONOS’taki site dosyalarında (index.html, admin.html, manage.html, manage-list.html) **api-base** meta etiketini Render URL’ine çevir:
 
 ```html
-<meta name="api-base" content="https://browdesing-api.onrender.com" id="api-base-meta">
+<meta name="api-base" content="https://site-bztf.onrender.com" id="api-base-meta">
 ```
 
-(Render’ın verdiği adresi yaz. Örnek: `https://browdesing-api.onrender.com`)
+(Render’ın verdiği adresi yaz. Örnek: `https://site-bztf.onrender.com`)
 
 Bu dosyaları güncelleyip tekrar sunucuya (FileZilla ile) at.
 

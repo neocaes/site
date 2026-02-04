@@ -3,8 +3,12 @@
 
   var apiMeta = document.querySelector('meta[name="api-base"]');
   var API_BASE = (apiMeta && apiMeta.getAttribute('content')) ? apiMeta.getAttribute('content').trim() : ((typeof window !== 'undefined' && window.API_BASE) ? window.API_BASE : '');
-  if (typeof window !== 'undefined' && window.location && window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && (!API_BASE || API_BASE.indexOf('localhost') !== -1)) {
-    API_BASE = window.location.origin + '/api';
+  var isLocal = typeof window !== 'undefined' && window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+  if (!isLocal && (!API_BASE || API_BASE.indexOf('localhost') !== -1)) {
+    API_BASE = 'https://site-bztf.onrender.com';
+  }
+  if (isLocal && !API_BASE) {
+    API_BASE = window.location.origin.replace(/:\d+$/, ':3000') || 'http://localhost:3000';
   }
   var STORAGE_APPOINTMENTS = 'browdesing_randevular';
   var STORAGE_CONTENT = 'browdesing_content';
@@ -588,7 +592,7 @@
           alert(data.message || (getLang() === 'de' ? 'Ein Fehler ist aufgetreten.' : 'Bir hata oluştu.'));
         }
       }).catch(function () {
-        alert(getLang() === 'de' ? 'Verbindungsfehler. Bitte später erneut versuchen.' : 'Bağlantı hatası. Lütfen daha sonra tekrar deneyin.');
+        alert(getLang() === 'de' ? 'Verbindungsfehler. Server braucht ggf. 1 Min. zum Starten – bitte erneut versuchen.' : 'Bağlantı hatası. Sunucu 1 dakika uyanıyor olabilir – lütfen tekrar deneyin.');
       });
       return;
     }

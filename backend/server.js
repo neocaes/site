@@ -597,6 +597,35 @@ app.get('/api/admin/reset-password', (req, res) => {
 });
 
 // ---------------------------------------------------------------------------
+// GET /api/test-email ve /test-email – Test maili gönder (Render’da SMTP kontrolü)
+// Tarayıcıda: https://site-bztf.onrender.com/api/test-email?secret=...&to=...
+// veya:      https://site-bztf.onrender.com/test-email?secret=...&to=...
+// ---------------------------------------------------------------------------
+function handleTestEmail(req, res) {
+  const secret = process.env.RESET_SECRET;
+  if (!secret || secret.length < 8) {
+    return res.status(404).json({ ok: false, error: 'RESET_SECRET tanımlı değil' });
+  }
+  if ((req.query.secret || '').trim() !== secret) {
+    return res.status(401).json({ ok: false, error: 'Geçersiz secret' });
+  }
+  const to = (req.query.to || process.env.ADMIN_EMAIL || process.env.SITE_EMAIL || '').trim();
+  if (!to) {
+    return res.status(400).json({ ok: false, error: 'to= adresi gerekli (veya ADMIN_EMAIL env)' });
+  }
+  if (!process.env.SMTP_PASS || !process.env.SMTP_USER) {
+    return res.json({ ok: false, error: 'SMTP ayarlı değil – Render Environment’ta SMTP_HOST, SMTP_USER, SMTP_PASS ekle' });
+  }
+  const subject = '[Browdesing] E-posta testi';
+  const html = '<p>Bu bir test mailidir. SMTP çalışıyor.</p>';
+  getMailTransporter().sendMail({ from: process.env.SITE_EMAIL || 'info@browdesignsongul.com', to, subject, html })
+    .then(() => res.json({ ok: true, message: 'Test maili gönderildi: ' + to }))
+    .catch((err) => res.status(500).json({ ok: false, error: err.message || String(err) }));
+}
+app.get('/api/test-email', handleTestEmail);
+app.get('/test-email', handleTestEmail);
+
+// ---------------------------------------------------------------------------
 // POST /api/admin/login – Admin giriş
 // ---------------------------------------------------------------------------
 app.post('/api/admin/login', (req, res) => {

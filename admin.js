@@ -3,8 +3,12 @@
 
   var apiMeta = document.querySelector('meta[name="api-base"]');
   var API_BASE = (apiMeta && apiMeta.getAttribute('content')) ? apiMeta.getAttribute('content').trim() : '';
-  if (window.location && window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && (!API_BASE || API_BASE.indexOf('localhost') !== -1)) {
-    API_BASE = window.location.origin + '/api';
+  var isLocal = window.location && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+  if (!isLocal && (!API_BASE || API_BASE.indexOf('localhost') !== -1)) {
+    API_BASE = 'https://site-bztf.onrender.com';
+  }
+  if (isLocal && !API_BASE) {
+    API_BASE = window.location.origin.replace(/:\d+$/, ':3000') || 'http://localhost:3000';
   }
   var STORAGE_THEME = 'browdesing_theme';
   var SESSION_ADMIN_TOKEN = 'browdesing_admin_token';
