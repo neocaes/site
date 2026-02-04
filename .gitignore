@@ -1,0 +1,10 @@
+# Ortam değişkenleri (şifre vb. içerir)
+.env
+backend/.env
+
+# Veritabanı
+backend/*.db
+
+# Bağımlılıklar
+node_modules/
+backend/node_modules/

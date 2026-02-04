@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="api-base" content="http://localhost:3000" id="api-base-meta">
+  <title>Admin | Browdesing Songül</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .admin-wrap { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .admin-section { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; margin-bottom: 1.5rem; }
+    .admin-section h2 { margin: 0 0 1rem; font-size: 1.25rem; color: var(--text); }
+    .admin-form .form-group { margin-bottom: 1rem; }
+    .admin-form label { display: block; font-size: 0.8125rem; font-weight: 500; color: var(--text-muted); margin-bottom: 0.35rem; }
+    .admin-form input, .admin-form select, .admin-form textarea { width: 100%; padding: 0.65rem 0.9rem; font-family: inherit; font-size: 0.9375rem; color: var(--text); background: var(--bg-input); border: 1px solid var(--border); border-radius: var(--radius); }
+    .admin-form textarea { min-height: 80px; resize: vertical; }
+    .btn-danger { background: #b91c1c; color: #fff; }
+    .btn-danger:hover { background: #991b1b; }
+    .randevu-list { list-style: none; margin: 0; padding: 0; }
+    .randevu-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 0.5rem; }
+    .randevu-item:last-child { border-bottom: none; }
+    .randevu-info { font-size: 0.9375rem; color: var(--text); }
+    .randevu-meta { font-size: 0.8125rem; color: var(--text-muted); }
+    .admin-calendar-wrap { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 0.5rem; }
+    .admin-calendar-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.8125rem; border-radius: var(--radius); background: var(--bg-input); border: 1px solid var(--border); cursor: pointer; position: relative; padding-top: 4px; }
+    .admin-calendar-day:hover { background: var(--border); }
+    .admin-calendar-day--empty { background: transparent; border: none; cursor: default; }
+    .admin-calendar-day--badge { position: absolute; top: 2px; right: 4px; min-width: 18px; height: 18px; border-radius: 50%; background: #dc2626; color: #fff; font-size: 0.7rem; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+    .admin-calendar-day-header { text-align: center; font-size: 0.7rem; font-weight: 600; color: var(--text-muted); padding: 0.35rem 0; }
+    .login-box { max-width: 360px; margin: 4rem auto; padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+    .login-box h1 { margin: 0 0 1.5rem; font-size: 1.5rem; }
+    .login-box .form-group { margin-bottom: 1rem; }
+    .login-box input { width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 1rem; }
+    .login-box button { width: 100%; padding: 0.75rem; margin-top: 0.5rem; }
+    .admin-gate { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
+    .admin-notif-tray { position: fixed; bottom: 1rem; right: 1rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; max-width: 320px; }
+    .admin-notif-window { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.75rem 1rem; box-shadow: var(--shadow-lg); font-size: 0.875rem; }
+    .admin-notif-window h4 { margin: 0 0 0.35rem; font-size: 0.8125rem; color: var(--text-muted); }
+    .admin-notif-window p { margin: 0; }
+    .admin-notif-badge { position: relative; min-width: 20px; height: 20px; border-radius: 50%; background: #dc2626; color: #fff; font-size: 0.7rem; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; padding: 0 6px; }
+  </style>
+</head>
+<body>
+  <div id="admin-notif-tray" class="admin-notif-tray" hidden></div>
+  <div id="admin-gate" class="admin-gate" hidden>
+    <p>Bu sayfaya erişim yetkiniz yok.</p>
+    <a href="index.html">Ana sayfaya dön</a>
+  </div>
+
+  <div id="login-box" class="login-box" hidden>
+    <h1>Admin Girişi</h1>
+    <form id="login-form">
+      <div class="form-group">
+        <label for="admin-user">Kullanıcı adı</label>
+        <input type="text" id="admin-user" name="user" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label for="admin-pass">Şifre</label>
+        <input type="password" id="admin-pass" name="pass" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-primary">Giriş Yap</button>
+    </form>
+    <p id="login-error" style="color: #b91c1c; font-size: 0.875rem; margin-top: 0.75rem; display: none;">Kullanıcı adı veya şifre hatalı.</p>
+  </div>
+
+  <div id="admin-panel" class="admin-wrap" hidden>
+    <div class="admin-header">
+      <h1 style="margin: 0; font-size: 1.5rem;">Browdesing Songül – Admin</h1>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <a href="index.html" class="btn btn-secondary">Siteye Git</a>
+        <button type="button" class="btn btn-secondary" id="admin-logout">Çıkış</button>
+      </div>
+    </div>
+
+    <div class="admin-section">
+      <h2 style="display: flex; align-items: center; gap: 0.5rem;">Randevular <span id="admin-notif-badge" class="admin-notif-badge" style="display: none;">0</span></h2>
+      <div class="admin-calendar-nav" style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;">
+        <button type="button" class="btn btn-secondary" id="admin-prev-month">←</button>
+        <span id="admin-month-label" style="font-weight: 600; min-width: 140px;"></span>
+        <button type="button" class="btn btn-secondary" id="admin-next-month">→</button>
+      </div>
+      <div id="admin-calendar-wrap" class="admin-calendar-wrap"></div>
+      <p id="admin-day-detail" class="randevu-meta" style="margin-top: 1rem; padding: 0.75rem; background: var(--bg-input); border-radius: var(--radius); display: none;"></p>
+      <ul id="randevu-list" class="randevu-list" style="margin-top: 1rem;"></ul>
+      <p id="randevu-empty" class="randevu-meta" style="padding: 1rem; display: none;">Henüz randevu yok.</p>
+    </div>
+
+    <div class="admin-section">
+      <h2>Site İçeriğini Düzenle</h2>
+      <p class="randevu-meta" style="margin-bottom: 1rem; font-size: 0.875rem; color: var(--text-muted);">Buradan yaptığınız değişiklikler sunucuda kaydedilir; siteyi açan <strong>tüm cihazlar ve ziyaretçiler</strong> güncel içeriği görür (sadece sizin cihazınıza özel değildir).</p>
+      <form id="content-form" class="admin-form">
+        <div class="form-group">
+          <label>Instagram URL</label>
+          <input type="url" id="c-instagramUrl" placeholder="https://www.instagram.com/...">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp URL</label>
+          <input type="url" id="c-whatsappUrl" placeholder="https://wa.me/49...">
+        </div>
+        <div class="form-group">
+          <label>Dükkan fotoğrafı (URL)</label>
+          <input type="url" id="c-shopPhotoUrl" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>Songül fotoğrafı (URL) – Hakkımızda bölümünde profesyonel görünüm</label>
+          <input type="url" id="c-motherPhotoUrl" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>Hero arka plan fotoğrafı (URL)</label>
+          <input type="url" id="c-heroBgImage" placeholder="https://...">
+          <small style="display:block; margin-top:0.25rem; color: var(--text-muted); font-size:0.8125rem;">Giriş (hero) bölümünün arkasında görünür. Boş bırakırsanız varsayılan kaş alma temalı fotoğraf kullanılır.</small>
+        </div>
+        <div class="form-group">
+          <label>Hero başlık (satır için \n)</label>
+          <input type="text" id="c-heroTitle" placeholder="Kaşınız, bakışınızı tanımlasın">
+        </div>
+        <div class="form-group">
+          <label>Hero açıklama</label>
+          <textarea id="c-heroDesc" placeholder="Kısa açıklama..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Hakkımızda başlık</label>
+          <input type="text" id="c-aboutTitle" placeholder="Browdesing Songül">
+        </div>
+        <div class="form-group">
+          <label>Hakkımızda metin</label>
+          <textarea id="c-aboutText" placeholder="..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Adres (satır için \n)</label>
+          <textarea id="c-contactAddress" rows="2" placeholder="Q3 1-3..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Telefon</label>
+          <input type="text" id="c-contactPhone" placeholder="+49 621 ...">
+        </div>
+        <div class="form-group">
+          <label>Çalışma saatleri (satır için \n)</label>
+          <textarea id="c-contactHours" rows="2" placeholder="Salı–Cuma: 09:00–18:00"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Footer metni</label>
+          <input type="text" id="c-footerCopy" placeholder="© 2025 ...">
+        </div>
+        <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem;">Hizmet 1–8: başlık, açıklama ve fotoğraf URL’si (isteğe bağlı).</p>
+        <div id="service-fields"></div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Kaydet</button>
+      </form>
+    </div>
+
+    <div class="admin-section">
+      <h2>Randevu ayarları</h2>
+      <form id="cancel-cutoff-form" class="admin-form">
+        <div class="form-group">
+          <label>İptal engeli (saat)</label>
+          <input type="number" id="cancel-cutoff-hours" min="0" max="168" value="0" placeholder="0">
+          <small style="display:block; margin-top:0.25rem; color: var(--text-muted); font-size:0.8125rem;">0 = kapalı. 12 = randevuya 12 saat kala müşteri iptal edemez.</small>
+        </div>
+        <button type="submit" class="btn btn-secondary">Kaydet</button>
+      </form>
+    </div>
+
+    <div class="admin-section">
+      <h2>Soru-Cevap</h2>
+      <p class="randevu-meta" style="margin-bottom: 1rem;">Gelen sorular (isim ve e-posta admin tarafından görülebilir). Yanıt yazıp kaydedin.</p>
+      <ul id="questions-list" class="randevu-list" style="margin-bottom: 1rem;"></ul>
+      <p id="questions-empty" class="randevu-meta" style="display: none;">Henüz soru yok.</p>
+    </div>
+
+    <div class="admin-section">
+      <h2>Admin şifresini değiştir</h2>
+      <form id="password-form" class="admin-form">
+        <div class="form-group">
+          <label>Yeni kullanıcı adı</label>
+          <input type="text" id="new-user" placeholder="admin">
+        </div>
+        <div class="form-group">
+          <label>Yeni şifre</label>
+          <input type="password" id="new-pass" placeholder="••••••••">
+        </div>
+        <button type="submit" class="btn btn-secondary">Şifreyi Güncelle</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

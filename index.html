@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light" data-lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="api-base" content="http://localhost:3000" id="api-base-meta">
+  <title>Browdesing Songül | Kaş, Kirpik & Ağda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container">
+      <a href="#" class="logo" id="logo-secret">Browdesing <span>Songül</span></a>
+      <div class="nav-right">
+        <a href="#" class="whatsapp-link nav-wp" id="whatsapp-link" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <svg class="icon-whatsapp" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </a>
+        <a href="#" class="instagram-link" id="instagram-link" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg class="icon-instagram" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+        <button type="button" class="btn-lang" id="btn-lang" aria-label="Sprache wechseln / Dil değiştir">
+          <svg class="icon-globe" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          </svg>
+        </button>
+        <button type="button" class="btn-theme" id="btn-theme" aria-label="Tema değiştir">
+          <span class="theme-icon sun">☀</span>
+          <span class="theme-icon moon">☽</span>
+        </button>
+      </div>
+      <button class="nav-toggle" aria-label="Menüyü aç">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="#anasayfa" data-i18n="nav.home">Anasayfa</a></li>
+        <li><a href="#hizmetler" data-i18n="nav.services">Hizmetler</a></li>
+        <li><a href="#hakkimizda" data-i18n="nav.about">Hakkımızda</a></li>
+        <li><a href="#iletisim" data-i18n="nav.contact">İletişim</a></li>
+        <li><a href="#" class="btn btn-primary btn-randevu" data-i18n="nav.appointment">Randevu Al</a></li>
+        <li class="nav-menu-whatsapp"><a href="#" id="whatsapp-link-menu" class="whatsapp-link" target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="icon-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a></li>
+        <li class="nav-menu-instagram"><a href="#" id="instagram-link-menu" class="instagram-link" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon-instagram" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="anasayfa" class="hero">
+      <div class="hero-bg" id="hero-bg"></div>
+      <div class="container hero-content">
+        <p class="hero-subtitle" data-i18n="hero.subtitle">Profesyonel Güzellik & Bakım</p>
+        <h1 class="hero-title" id="hero-title">Kaşınız, bakışınızı <br>tanımlasın</h1>
+        <p class="hero-desc" id="hero-desc">Kaş alma, boyama, kirpik lifting ve ağda hizmetleriyle doğal güzelliğinizi öne çıkarıyoruz.</p>
+        <a href="#" class="btn btn-primary btn-lg btn-randevu" data-i18n="hero.cta">Randevu Al</a>
+      </div>
+      <div class="hero-scroll">
+        <span data-i18n="hero.scroll">Aşağı kaydır</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <section id="hizmetler" class="services">
+      <div class="container">
+        <p class="section-label" id="services-label" data-i18n="services.label">Hizmetlerimiz</p>
+        <h2 class="section-title" id="services-title" data-i18n="services.title">Sizin için neler yapıyoruz?</h2>
+        <div class="services-grid">
+          <article class="service-card">
+            <div class="service-img-wrap">
+              <img class="service-img" id="service-img-1" src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&h=300&fit=crop" alt="Kaş Alma">
+            </div>
+            <div class="service-body">
+              <h3 id="service-title-1">Kaş Alma & Şekillendirme</h3>
+              <p id="service-desc-1">Profesyonel kaş alma ve şekillendirme ile yüzünüze en uygun kaş formunu oluşturuyoruz.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-img-wrap">
+              <img class="service-img" id="service-img-2" src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400&h=300&fit=crop" alt="Kaş Boyama">
+            </div>
+            <div class="service-body">
+              <h3 id="service-title-2">Kaş Boyama</h3>
+              <p id="service-desc-2">Kalıcı veya yarı kalıcı kaş boyama ile doğal ve dolgun bir görünüm sağlıyoruz.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-img-wrap">
+              <img class="service-img" id="service-img-3" src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&h=300&fit=crop" alt="Kirpik">
+            </div>
+            <div class="service-body">
+              <h3 id="service-title-3">Kirpik Lifting & Takma</h3>
+              <p id="service-desc-3">Kirpik lifting veya takma kirpik ile bakışlarınızı güçlendiriyoruz.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-img-wrap">
+              <img class="service-img" id="service-img-4" src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&h=300&fit=crop" alt="Ağda">
+            </div>
+            <div class="service-body">
+              <h3 id="service-title-4">Ağda</h3>
+              <p id="service-desc-4">Yüz ve vücut ağda hizmetleriyle pürüzsüz ve uzun süreli sonuçlar sunuyoruz.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-img-wrap">
+              <img class="service-img" id="service-img-5" src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=400&h=300&fit=crop" alt="Topuz">
+            </div>
+            <div class="service-body">
+              <h3 id="service-title-5">Topuz</h3>
+              <p id="service-desc-5">Özel günleriniz için şık topuz ve saç stilleri.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-img-wrap">
+              <img class="service-img" id="service-img-6" src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&h=300&fit=crop" alt="Makyaj">
+            </div>
+            <div class="service-body">
+              <h3 id="service-title-6">Makyaj</h3>
+              <p id="service-desc-6">Günlük ve özel gün makyajı ile yüzünüzü öne çıkarıyoruz.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-img-wrap">
+              <img class="service-img" id="service-img-7" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=300&fit=crop" alt="Türban">
+            </div>
+            <div class="service-body">
+              <h3 id="service-title-7">Türban</h3>
+              <p id="service-desc-7">Türban bağlama ve stil danışmanlığı.</p>
+            </div>
+          </article>
+          <article class="service-card">
+            <div class="service-img-wrap">
+              <img class="service-img" id="service-img-8" src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&h=300&fit=crop" alt="Gelin">
+            </div>
+            <div class="service-body">
+              <h3 id="service-title-8">Gelin Saçı & Makyajı</h3>
+              <p id="service-desc-8">Düğün gününüz için gelin saçı ve makyajı paketleri.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="hakkimizda" class="about">
+      <div class="container about-grid">
+        <div class="about-content">
+          <p class="section-label" data-i18n="about.label">Hakkımızda</p>
+          <h2 class="section-title" id="about-title">Browdesing Songül</h2>
+          <p class="about-text" id="about-text">
+            Yılların deneyimi ve güncel tekniklerle kaş, kirpik ve ağda alanında profesyonel hizmet veriyoruz.
+            Her müşterimizi özel hissederek, ihtiyaçlarına uygun çözümler sunuyoruz.
+          </p>
+          <ul class="about-features">
+            <li data-i18n="about.f1">Hijyenik ve steril ortam</li>
+            <li data-i18n="about.f2">Kaliteli ürünler</li>
+            <li data-i18n="about.f3">Deneyimli kadro</li>
+            <li data-i18n="about.f4">Randevu ile hizmet</li>
+          </ul>
+        </div>
+        <div class="about-visual">
+          <div class="about-photos">
+            <img id="about-shop-photo" class="about-photo about-photo--shop" alt="Dükkan" style="display:none;">
+            <div class="about-songul-wrap">
+              <img id="about-mother-photo" class="about-photo about-photo--songul" alt="Songül" style="display:none;">
+            </div>
+          </div>
+          <div class="about-card">
+            <span class="about-number" id="about-number1">5+</span>
+            <span data-i18n="about.stat1">Yıllık Deneyim</span>
+          </div>
+          <div class="about-card">
+            <span class="about-number" id="about-number2">1000+</span>
+            <span data-i18n="about.stat2">Mutlu Müşteri</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="iletisim" class="contact">
+      <div class="container">
+        <p class="section-label" data-i18n="contact.label">İletişim</p>
+        <h2 class="section-title" data-i18n="contact.title">Bize Ulaşın</h2>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="contact-item">
+              <span class="contact-label" data-i18n="contact.addressLabel">Adres</span>
+              <p id="contact-address">Q3 1-3 (Ferro Friseur Kosmetic Salon)<br>68161 Mannheim</p>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label" data-i18n="contact.phoneLabel">Telefon</span>
+              <p><a href="tel:+49621123456" id="contact-phone-link">+49 621 123 456</a></p>
+            </div>
+            <div class="contact-item">
+              <span class="contact-label" data-i18n="contact.hoursLabel">Çalışma Saatleri</span>
+              <p id="contact-hours">Salı–Cuma: 09:00–18:00<br>Cumartesi: 09:00–17:00</p>
+            </div>
+            <div class="contact-item contact-instagram">
+              <span class="contact-label">Instagram</span>
+              <p>
+                <a href="#" id="instagram-link-contact" class="instagram-link" target="_blank" rel="noopener" aria-label="Instagram">
+                  <svg class="icon-instagram" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  <span data-i18n="contact.instagram">Bizi takip edin</span>
+                </a>
+              </p>
+            </div>
+            <div class="contact-item contact-whatsapp" id="contact-whatsapp-wrap" style="display:none;">
+              <span class="contact-label">WhatsApp</span>
+              <p>
+                <a href="#" id="whatsapp-link-contact" class="whatsapp-link" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp ile yazın</a>
+              </p>
+            </div>
+          </div>
+          <div class="contact-cta">
+            <p data-i18n="contact.ctaText">Randevu almak için takvimi kullanın veya bizi arayın.</p>
+            <a href="#" class="btn btn-primary btn-randevu" data-i18n="contact.ctaBtn">Randevu Al</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="#" class="logo">Browdesing <span>Songül</span></a>
+        <p class="footer-copy" id="footer-copy">© 2025 Browdesing Songül. Tüm hakları saklıdır.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Randevu Modal - Takvim akışı -->
+  <div id="randevu-modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content modal-content--wide">
+      <button class="modal-close" aria-label="Kapat">&times;</button>
+      <h2 class="modal-title" data-i18n="appointment.title">Randevu Al</h2>
+
+      <div id="randevu-step-1" class="randevu-step">
+        <p class="randevu-step-label" data-i18n="appointment.chooseDate">Tarih seçin</p>
+        <div id="calendar-wrap" class="calendar-wrap"></div>
+        <div class="calendar-nav">
+          <button type="button" class="btn btn-secondary btn-prev-month" id="prev-month">←</button>
+          <span id="calendar-month-label"></span>
+          <button type="button" class="btn btn-secondary btn-next-month" id="next-month">→</button>
+        </div>
+      </div>
+
+      <div id="randevu-step-2" class="randevu-step" hidden>
+        <button type="button" class="btn btn-back" id="randevu-back-date">← <span data-i18n="appointment.back">Geri</span></button>
+        <p class="randevu-step-label"><span data-i18n="appointment.chooseTime">Saat seçin</span> — <span id="selected-date-display"></span></p>
+        <div id="time-slots" class="time-slots"></div>
+      </div>
+
+      <div id="randevu-step-3" class="randevu-step" hidden>
+        <button type="button" class="btn btn-back" id="randevu-back-time">← <span data-i18n="appointment.back">Geri</span></button>
+        <p class="randevu-step-label"><span data-i18n="appointment.details">Kişi ve işlem bilgileri</span> — <span id="selected-slot-display"></span></p>
+        <form id="randevu-form" class="randevu-form">
+          <input type="hidden" id="randevu-date" name="date">
+          <input type="hidden" id="randevu-time" name="time">
+          <div class="form-group">
+            <label for="ad" data-i18n="appointment.name">Ad Soyad *</label>
+            <input type="text" id="ad" name="ad" required placeholder="Adınız ve soyadınız">
+          </div>
+          <div class="form-group">
+            <label for="email" data-i18n="appointment.email">E-posta *</label>
+            <input type="email" id="email" name="email" required placeholder="ihre@email.de" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="telefon" data-i18n="appointment.phone">Telefon (isteğe bağlı)</label>
+            <input type="tel" id="telefon" name="telefon" placeholder="+49 ..." autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label for="hizmet" data-i18n="appointment.service">Hizmet *</label>
+            <select id="hizmet" name="hizmet" required>
+              <option value="">Seçiniz</option>
+              <option value="kas-alma">Kaş Alma & Şekillendirme</option>
+              <option value="kas-boyama">Kaş Boyama</option>
+              <option value="kirpik">Kirpik Lifting / Takma</option>
+              <option value="agda">Ağda</option>
+              <option value="topuz">Topuz</option>
+              <option value="makyaj">Makyaj</option>
+              <option value="turban">Türban</option>
+              <option value="gelin">Gelin Saçı & Makyajı</option>
+              <option value="kombine">Kombine Paket</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mesaj" data-i18n="appointment.note">Not (isteğe bağlı)</label>
+            <textarea id="mesaj" name="mesaj" rows="2" placeholder="..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" data-i18n="appointment.submit">Randevu Talebi Gönder</button>
+        </form>
+      </div>
+
+      <div id="randevu-success" class="form-success" hidden>
+        <p data-i18n="appointment.success">Randevu talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz.</p>
+        <p class="form-success-thanks" data-i18n="appointment.thanks">Bizi tercih ettiğiniz için teşekkür ederiz.</p>
+        <p class="form-success-manage-label" data-i18n="appointment.manageLabel">Randevunuzu iptal veya değiştirmek için bu linki kullanın (e-posta ile de gönderilecektir):</p>
+        <a id="randevu-manage-link" href="#" class="form-success-manage-link" target="_blank" rel="noopener"></a>
+        <button type="button" id="randevu-copy-link" class="btn btn-secondary" style="margin-top: 0.75rem;" data-i18n="appointment.copyLink">Linki kopyala</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

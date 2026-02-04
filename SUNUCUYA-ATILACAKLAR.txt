@@ -1,0 +1,45 @@
+============================================
+  SUNUCUYA ATILACAK DOSYALAR (FileZilla)
+============================================
+
+A) SİTE DOSYALARI (public_html veya www içine – kök dizine)
+   Sol: C:\Users\Mehmet\browdesing-songul
+   Sağ: public_html (veya www)
+
+   Şu dosyaları seç → sağa sürükle (hepsi kök dizinde olsun):
+
+   - index.html
+   - script.js
+   - styles.css
+   - admin.html
+   - admin.js
+   - manage.html
+   - manage.js
+   - manage-list.html
+   - reset-admin-link.html
+
+--------------------------------------------
+
+B) BACKEND (Node.js API sunucuda ayrı klasörde çalışıyorsa)
+   Sol: C:\Users\Mehmet\browdesing-songul\backend
+   Sağ: Sunucudaki backend klasörü (örn. backend veya api)
+
+   Şu dosyaları at:
+
+   - server.js          (mutlaka)
+   - package.json      (ilk kurulumda veya değiştiyse)
+   - .env              (sunucuda yoksa at; varsa sadece RESET_SECRET ekleyebilirsin)
+   - reset-admin-password.js  (isteğe bağlı)
+   - test-email.js     (isteğe bağlı)
+
+   ÖNEMLİ: Sunucuda zaten .env varsa silme. Sadece server.js’i güncelle.
+   Admin şifre sıfırlamak için sunucudaki .env’de şu satır olsun:
+   RESET_SECRET=canlisifresifirla2025
+
+   Backend’i sunucuda yeniden başlat (node server.js veya pm2 restart).
+
+============================================
+
+ÖZET:
+  Site için: 9 dosya → public_html (köke)
+  Backend için: server.js + gerekirse .env, package.json → backend klasörü

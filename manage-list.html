@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="api-base" content="" id="api-base-meta">
+  <title>Randevularınız | Browdesing Songül</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .manage-list-page { min-height: 100vh; padding: 4rem 1.5rem 2rem; }
+    .manage-list-logo { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; color: var(--text); text-align: center; margin-bottom: 2rem; }
+    .manage-list-card { max-width: 560px; margin: 0 auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow); }
+    .manage-list-card h1 { font-family: var(--font-display); font-size: 1.25rem; margin: 0 0 1rem; color: var(--text); }
+    .manage-list-item { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; gap: 0.5rem; }
+    .manage-list-item:last-child { border-bottom: none; }
+    .manage-list-info { font-size: 0.9375rem; color: var(--text); }
+    .manage-list-meta { font-size: 0.8125rem; color: var(--text-muted); }
+    .manage-list-error, .manage-list-empty { text-align: center; padding: 2rem; color: var(--text-muted); }
+    .manage-list-loading { text-align: center; padding: 2rem; color: var(--text-muted); }
+  </style>
+</head>
+<body>
+  <div class="manage-list-page">
+    <a href="index.html" class="btn btn-secondary" style="margin-bottom: 1rem;">← Ana sayfa</a>
+    <div class="manage-list-logo">Browdesing <span>Songül</span></div>
+
+    <div id="manage-list-loading" class="manage-list-card manage-list-loading">
+      Randevularınız yükleniyor…
+    </div>
+    <div id="manage-list-error" class="manage-list-card manage-list-error" hidden>
+      <p id="manage-list-error-text">Link geçersiz veya süresi dolmuş. Lütfen e-posta ile tekrar talep edin.</p>
+      <a href="index.html" class="btn btn-primary" style="margin-top: 1rem;">Ana sayfaya dön</a>
+    </div>
+    <div id="manage-list-view" class="manage-list-card" hidden>
+      <h1>Randevularınız</h1>
+      <p class="manage-list-meta" style="margin-bottom: 1rem;">Randevunuzu iptal veya değiştirmek için ilgili linke tıklayın.</p>
+      <div id="manage-list-items"></div>
+      <a href="index.html" class="btn btn-secondary" style="margin-top: 1rem;">Ana sayfaya dön</a>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var apiMeta = document.querySelector('meta[name="api-base"]');
+      var API_BASE = (apiMeta && apiMeta.getAttribute('content')) ? apiMeta.getAttribute('content').trim() : '';
+      if (window.location && window.location.hostname && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1' && (!API_BASE || API_BASE.indexOf('localhost') !== -1)) {
+        API_BASE = window.location.origin + '/api';
+      }
+      var params = new URLSearchParams(window.location.search);
+      var token = params.get('token');
+      var loading = document.getElementById('manage-list-loading');
+      var errEl = document.getElementById('manage-list-error');
+      var viewEl = document.getElementById('manage-list-view');
+      var itemsEl = document.getElementById('manage-list-items');
+      var serviceLabels = { 'kas-alma': 'Kaş Alma', 'kas-boyama': 'Kaş Boyama', 'kirpik': 'Kirpik', 'agda': 'Ağda', 'topuz': 'Topuz', 'makyaj': 'Makyaj', 'turban': 'Türban', 'gelin': 'Gelin', 'kombine': 'Kombine' };
+
+      if (!token) {
+        loading.hidden = true;
+        errEl.hidden = false;
+        document.getElementById('manage-list-error-text').textContent = 'Link eksik. Lütfen e-postanızdaki linki kullanın.';
+        return;
+      }
+      if (!API_BASE) {
+        loading.hidden = true;
+        errEl.hidden = false;
+        document.getElementById('manage-list-error-text').textContent = 'Randevu listesi sunucuya bağlanamıyor. Lütfen daha sonra tekrar deneyin.';
+        return;
+      }
+      fetch(API_BASE + '/api/appointments/by-user?token=' + encodeURIComponent(token))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          loading.hidden = true;
+          if (data.error || !data.appointments || data.appointments.length === 0) {
+            errEl.hidden = false;
+            if (data.error === 'token_expired') document.getElementById('manage-list-error-text').textContent = 'Bu linkin süresi dolmuş. Lütfen randevu yönetimi sayfasından tekrar talep edin.';
+            else if (data.error === 'invalid_token') document.getElementById('manage-list-error-text').textContent = 'Link geçersiz.';
+            else if (!data.appointments || data.appointments.length === 0) {
+              viewEl.hidden = false;
+              itemsEl.innerHTML = '<p class="manage-list-meta">Aktif randevunuz bulunmuyor.</p>';
+            }
+            return;
+          }
+          viewEl.hidden = false;
+          var baseUrl = window.location.origin + window.location.pathname.replace(/manage-list\.html.*$/, '');
+          data.appointments.forEach(function (a) {
+            var div = document.createElement('div');
+            div.className = 'manage-list-item';
+            var serviceName = serviceLabels[a.service] || a.service;
+            div.innerHTML = '<div><span class="manage-list-info">' + a.date + ' ' + a.time + ' – ' + serviceName + '</span><br><span class="manage-list-meta">' + (a.status === 'pending_verification' ? 'E-posta doğrulaması bekleniyor' : 'Onaylı') + '</span></div><a href="' + baseUrl + 'manage.html?token=' + encodeURIComponent(a.manage_token) + '" class="btn btn-primary">Yönet</a>';
+            itemsEl.appendChild(div);
+          });
+        })
+        .catch(function () {
+          loading.hidden = true;
+          errEl.hidden = false;
+          document.getElementById('manage-list-error-text').textContent = 'Bağlantı hatası. Lütfen daha sonra tekrar deneyin.';
+        });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin şifre sıfırlama linki</title>
+  <style>
+    body { font-family: sans-serif; max-width: 480px; margin: 2rem auto; padding: 1.5rem; }
+    input { width: 100%; padding: 0.5rem; margin: 0.5rem 0 1rem; box-sizing: border-box; }
+    button { padding: 0.6rem 1.2rem; background: #333; color: #fff; border: none; cursor: pointer; }
+    button:hover { background: #555; }
+    p { color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Admin şifre sıfırlama</h1>
+  <p>Canlı sitenin domain'ini yaz (örn. browdesignsongul.com), butona tıkla. Açılan sayfada şifre sıfırlanır. Sonra admin panele <strong>admin</strong> / <strong>admin123</strong> ile gir.</p>
+  <label>Site adresi (https:// olmadan):</label>
+  <input type="text" id="domain" placeholder="browdesignsongul.com" value="browdesignsongul.com">
+  <button type="button" id="btn">Şifre sıfırlama linkini aç</button>
+  <script>
+    document.getElementById('btn').onclick = function () {
+      var domain = document.getElementById('domain').value.trim().replace(/^https?:\/\//, '').replace(/\/$/, '');
+      if (!domain) { alert('Domain yaz.'); return; }
+      var secret = 'canlisifresifirla2025';
+      var url = 'https://' + domain + '/api/admin/reset-password?secret=' + encodeURIComponent(secret) + '&password=admin123';
+      window.open(url, '_blank');
+    };
+  </script>
+</body>
+</html>
